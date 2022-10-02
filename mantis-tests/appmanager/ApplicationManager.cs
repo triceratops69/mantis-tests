@@ -20,6 +20,7 @@ namespace mantis_tests
         protected ProjectManagementHelper projectHelper;
         protected ManagementMenuHelper menuHelper;
 
+        public APIHelper API { get; set; }
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
 
@@ -34,6 +35,7 @@ namespace mantis_tests
             navigator = new NavigationHelper(this, baseURL);
             projectHelper = new ProjectManagementHelper(this);
             menuHelper = new ManagementMenuHelper(this);
+            API = new APIHelper(this);
 
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);

@@ -12,8 +12,22 @@ namespace mantis_tests
         [Test]
         public void TestProjectCreation()
         {
-            ProjectData project = new ProjectData("project" + GenerateRandomString(3));
+            List<ProjectData> oldProjects = new List<ProjectData>();
+            app.API.GetUserAccessible(account, oldProjects);
+
+            string name = app.Project.UniqName("project", oldProjects);
+            ProjectData project = new ProjectData(name);
+
             app.Project.Create(project);
+
+            List<ProjectData> newProjects = new List<ProjectData>();
+            app.API.GetUserAccessible(account, newProjects);
+
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
         }
     }
 }

@@ -32,6 +32,18 @@ namespace mantis_tests
             driver.FindElement(By.CssSelector("button.btn.btn-primary.btn-white.btn-round")).Click();
             return this;
         }
+        internal string UniqName(string name, List<ProjectData> oldProjects)
+        {
+            for (int i = 0; i < oldProjects.Count; i++)
+            {
+                if (name == oldProjects[i].Name)
+                {
+                    name += GenerateRandomString(5);
+                    i = 0;
+                }
+            }
+            return name;
+        }
         public ProjectManagementHelper FillProjectForm(ProjectData project)
         {
             Type(By.Name("name"), project.Name);
