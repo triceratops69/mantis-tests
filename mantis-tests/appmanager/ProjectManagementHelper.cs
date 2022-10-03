@@ -15,6 +15,32 @@ namespace mantis_tests
         {
         }
 
+        public void GetProjectListFromUI(List<ProjectData> oldProjects)
+        {
+            manager.Navigator.GoToprojectPage();
+            int count = driver.FindElements(By.CssSelector("tbody tr td a")).Count;
+            for (int i = 0; i < count; i++)
+            {
+                oldProjects.Add(new ProjectData() { Name = driver.FindElements(By.CssSelector("tbody tr td a"))[i].Text });
+            }
+        }
+        public string GenerateRandomName()
+        {
+            return GenerateRandomString(40);
+        }
+        public string UniqName(string name, List<ProjectData> oldProjects)
+        {
+            for (int i = 0; i < oldProjects.Count; i++)
+            {
+                if (name == oldProjects[i].Name)
+                {
+                    name += GenerateRandomString(10);
+                    i = 0;
+                }
+            }
+            return name;
+        }
+
         //Create project
 
         public ProjectManagementHelper Create(ProjectData project)
@@ -31,18 +57,6 @@ namespace mantis_tests
         {
             driver.FindElement(By.CssSelector("button.btn.btn-primary.btn-white.btn-round")).Click();
             return this;
-        }
-        internal string UniqName(string name, List<ProjectData> oldProjects)
-        {
-            for (int i = 0; i < oldProjects.Count; i++)
-            {
-                if (name == oldProjects[i].Name)
-                {
-                    name += GenerateRandomString(5);
-                    i = 0;
-                }
-            }
-            return name;
         }
         public ProjectManagementHelper FillProjectForm(ProjectData project)
         {

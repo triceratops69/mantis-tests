@@ -43,5 +43,14 @@ namespace mantis_tests
             }
             driver.Navigate().GoToUrl(baseURL + "/manage_overview_page.php");
         }
+
+        public void GoToprojectPage()
+        {
+            if (driver.Url == baseURL + "/manage_proj_page.php")
+            {
+                return;
+            }
+            driver.Navigate().GoToUrl(baseURL + "/manage_proj_page.php");
+        }
     }
 }

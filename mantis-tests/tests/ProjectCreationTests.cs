@@ -29,5 +29,25 @@ namespace mantis_tests
 
             Assert.AreEqual(oldProjects, newProjects);
         }
+
+        [Test]
+        public void TestRandomNameProjectCreation()
+        {
+            List<ProjectData> oldProjects = new List<ProjectData>();
+            app.Project.GetProjectListFromUI(oldProjects);
+
+            string name = app.Project.UniqName(app.Project.GenerateRandomName(), oldProjects);
+            ProjectData project = new ProjectData(name);
+            app.Project.Create(project); 
+            
+            List<ProjectData> newProjects = new List<ProjectData>();
+            app.Project.GetProjectListFromUI(newProjects); 
+
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
+        }
     }
 }
